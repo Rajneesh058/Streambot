@@ -70,14 +70,17 @@ async def private_receive_handler(c: Client, m: Message):
             return
     try:
         log_msg = await m.forward(chat_id=Var.BIN_CHANNEL)
-        online_link = f"{Var.URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
-        stream_link = f"{Var.URL}{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
-       
+        stream_link = "https://{}/{}/{}".format{Var.URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+        online_link = "https://{}/{}/{}".format(Var.FQDN, get_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
+            "http://{}:{}/{}/{}".format(Var.FQDN,
+                                     Var.PORT,
+                                     get_msg.message_id,
+                                     file_name)
         msg_text ="""
 <b>📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <i>{}</i>
 <b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <i>{}</i>
-<b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <i>{}</i>\n\n
-<b>🖥️ Stream :</b> <i>{}</i>\n
+<b>🖥️ Stream :</b> <i>{}</i>\n\n
+<b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <i>{}</i>\n
 <b>🚸 Nᴏᴛᴇ : Lɪɴᴋ ᴇxᴘɪʀᴇᴅ ɪꜱ ᴘᴇʀᴍᴀɴᴇɴᴛ</b>
 <i>🍃 Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ :</i> <b>@Epic_creation_bots</b>"""
         
@@ -86,8 +89,8 @@ async def private_receive_handler(c: Client, m: Message):
             text=msg_text.format(get_name(log_msg), humanbytes(get_media_file_size(m)), online_link, stream_link),
             quote=True,
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=online_link), #Stream Link
-                                                InlineKeyboardButton('ᴅᴏᴡɴʟᴏᴀᴅ', url=stream_link)]] #Download Link
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=stream_link), #Stream Link
+                                                InlineKeyboardButton('ᴅᴏᴡɴʟᴏᴀᴅ', url=online_link)]] #Download Link
         )
     except FloodWait as e:
         print(f"Sleeping for {str(e.x)}s")
