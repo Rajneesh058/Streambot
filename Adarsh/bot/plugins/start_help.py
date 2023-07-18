@@ -1,4 +1,6 @@
 #Adarsh goel
+import asyncio
+import urllib.parse
 from Adarsh.bot import StreamBot
 from Adarsh.vars import Var
 import logging
@@ -199,7 +201,7 @@ async def start(b, m):
             file_name = f"{get_msg.audio.file_name}"
 
 
-        stream_link = f"{Var.URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
+        stream_link = "https://{}/{}/{}".format{Var.URL}watch/{str(log_msg.id)}/{quote_plus(get_name(log_msg))}?hash={get_hash(log_msg)}"
         online_link = "https://{}/{}/{}".format(Var.FQDN, get_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
             "http://{}:{}/{}/{}".format(Var.FQDN,
                                      Var.PORT,
